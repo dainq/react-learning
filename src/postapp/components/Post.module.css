@@ -1,0 +1,9 @@
+.post {
+  background-color: rgba(0, 128, 255, 0.1); /* Slight blue background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shading */
+  padding: 1rem; /* Add some padding */
+  color: red; /* Text color red */
+  border-radius: 4px; /* Rounded corners */
+  border: 1px solid black; /* Box border */
+  margin: 1rem 0;
+}
