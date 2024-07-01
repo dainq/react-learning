@@ -7,3 +7,39 @@
   border: 1px solid black; /* Box border */
   margin: 1rem 0;
 }
+.rotate-random {
+  position: fixed;
+  top: calc(0% + random(100%) - 50%);
+  left: calc(0% + random(100%) - 50%);
+  animation: rotate 2s linear infinite;
+}
+
+.todo_list {
+  display: flex;
+  align-items: center;
+  
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.todo_list .task {
+  flex: 1; /* Allow text to expand */
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.todo_list button {
+  border: none;
+  outline: none;
+  background-color: #e74c3c; /* Adjust delete button color */
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 20px; /* Round corners for the button */
+  cursor: pointer;
+  font-family: 'Dancing Script', cursive; /* Beautiful font */
+  font-size: 14px;
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
