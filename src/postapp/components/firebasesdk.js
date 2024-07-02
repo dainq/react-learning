@@ -31,6 +31,24 @@ querySnapshot.forEach((doc) => {
   console.log(doc.id, " => ", doc.data());
 });
 
+async function getTodos() {
+  const todosRef = db.collection('Todo');
+  const snapshot = await todosRef.get();
+  const todos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return todos;
+}
+
+// Get todos for the current user (assuming a 'uid' field in todos)
+async function getUserTodos() {
+  const user = auth.currentUser;
+  if (!user) {
+    throw new Error('User not logged in');
+  }
+  const todosRef = db.collection('todos').where('uid', '==', user.uid);
+  const snapshot = await todosRef.get();
+  const todos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return todos
+}
 // Add any authentication logic using auth here
 
 export default { app, db, auth };
