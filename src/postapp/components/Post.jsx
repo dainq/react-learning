@@ -1,16 +1,40 @@
 import React from "react";
 import classes from "./Post.module.css";
 import { useState } from "react";
+import db from "./firebasesdk"
+import auth from "./firebasesdk"
 
-export default function Post() {
+
+async function getTodos() {
+  const todosRef = db.collection('Todo');
+  const snapshot = await todosRef.get();
+  const todos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  console.log(todos)
+  return todos;
+}
+
+// Get todos for the current user (assuming a 'uid' field in todos)
+async function getUserTodos() {
+  const user = auth.currentUser;
+  if (!user) {
+    throw new Error('User not logged in');
+  }
+  const todosRef = db.collection('todos').where('uid', '==', user.uid);
+  const snapshot = await todosRef.get();
+  const todos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return todos
+}
+
+function Post() {
   let [input, setInput] = useState("");
   let [todoList, setTodo] = useState([]);
-
   function getInput(event) {
     const UserInput = event.target.value
     setInput(UserInput);
   };
   function addTodo() {
+    console.log(db)
+    getTodos()
     if (input.trim()) {
       setTodo([...todoList, input]);
       setInput("")
@@ -46,3 +70,4 @@ export default function Post() {
     </div>
   );
 }
+export default Post
